@@ -1,32 +1,99 @@
 <template>
   <div>
-    <Beverage :isIced="beverageStore.currentTemp === 'Cold'" />
+    <Beverage :isIced="currentTemp === 'Cold'" />
     <ul>
       <li>
-        <template v-for="temp in beverageStore.temps" :key="temp">
+        <template v-for="temp in temps" :key="temp">
           <label>
             <input
               type="radio"
               name="temperature"
               :id="`r${temp}`"
               :value="temp"
-              v-model="beverageStore.currentTemp"
+              v-model="currentTemp"
             />
             {{ temp }}
           </label>
         </template>
       </li>
     </ul>
-    <input type="text" placeholder="Beverage Name" />
-    <button>🍺 Make Beverage</button>
   </div>
-  <div id="beverage-container" style="margin-top: 20px"></div>
+
+<div>
+  <Base :base="currentBase" />
+  <ul>
+    <li>
+      <template v-for="base in bases" :key="base.id">
+        <label>
+          <input
+            type="radio"
+            name="base"
+            :id="`r${base.id}`"
+            :value="base.id"
+            v-model="currentBase"
+          />
+          {{ base.name }}
+        </label>
+      </template>
+    </li>
+  </ul>
+</div>
+
+<div>
+  <Syrup :syrup="currentSyrup" />
+    <ul>
+      <li>
+        <template v-for="syrup in syrups" :key="syrup.id">
+          <label>
+            <input
+              type="radio"
+              name="syrup"
+              :id="`r${syrup.id}`"
+              :value="syrup.id"
+              v-model="currentSyrup"
+            />
+            {{ syrup.name }}
+          </label>
+        </template>
+      </li>
+    </ul>
+  </div>
+
+  <div>
+    <Creamer :creamer="currentCreamer" />
+    <ul>
+      <li>
+        <template v-for="c in creamers" :key="c.id">
+          <label>
+            <input
+            type="radio"
+            name="creamer"
+            :value="c.id"
+            v-model="currentCreamer"
+            />
+          {{ c.name }}
+          </label>
+        </template>
+      </li>
+    </ul>
+  </div>
 </template>
 
 <script setup lang="ts">
+import { ref } from "vue";
+import Base from "./components/Base.vue";
 import Beverage from "./components/Beverage.vue";
-import { useBeverageStore } from "./stores/beverageStore";
-const beverageStore = useBeverageStore();
+import Creamer from "./components/Creamer.vue";
+import Syrup from "./components/Syrup.vue";
+import { temps, currentTemp } from "./stores/beverage";
+
+import { bases } from "./stores/beverage";
+import { syrups } from "./stores/beverage";
+import { creamers } from "./stores/beverage";
+
+const currentBase = ref(bases.value[0].id);
+const currentSyrup = ref(syrups.value[1]); // "Vanilla"
+const currentCreamer = ref(creamers.value[1]); // "Milk"
 </script>
 
 <style lang="scss">
