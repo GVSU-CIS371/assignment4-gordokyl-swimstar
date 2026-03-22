@@ -4,17 +4,16 @@
     <Hot v-else />
 
     <Contents>
-      <template v-slot:top>
+      <template #top>
         <Creamer v-if="hasCreamer" :creamer="creamer" />
       </template>
 
-      <template v-slot:mid>
-        <!-- Only show syrup if it exists -->
+      <template #mid>
         <Syrup v-if="hasSyrup" :syrup="syrup" />
       </template>
 
-      <template v-slot:bottom>
-        <Base />
+      <template #bottom>
+        <Base :base="base" />
       </template>
     </Contents>
   </Mug>
@@ -30,14 +29,21 @@ import Creamer from "./Creamer.vue";
 import Hot from "./Hot.vue";
 import Cold from "./Cold.vue";
 
+type BeverageOption = {
+  id: string;
+  name: string;
+  color: string;
+};
+
 type Props = {
   isIced: boolean;
-  creamer: string;
-  syrup: string;
+  base: BeverageOption;
+  creamer: BeverageOption;
+  syrup: BeverageOption;
 };
 
 const props = defineProps<Props>();
 
-const hasCreamer = computed(() => props.creamer !== "No Creamer");
-const hasSyrup = computed(() => props.syrup !== "No Syrup");
+const hasCreamer = computed(() => props.creamer.name !== "No Cream");
+const hasSyrup = computed(() => props.syrup.name !== "No Syrup");
 </script>

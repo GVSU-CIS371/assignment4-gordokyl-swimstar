@@ -1,38 +1,28 @@
 <template>
   <div>
-    <div class="baseSyrup" :style="baseStyle"></div>
-
-    <select v-model="selectedSyrupId">
-      <option v-for="s in syrups" :key="s.id" :value="s.id">
-        {{ s.name }}
-      </option>
-    </select>
+    <div class="baseSyrup" :style="syrupStyle"></div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from "vue";
-import { syrups } from "../stores/beverage";
+import { computed } from "vue";
 
-// store selected syrup by id (more reliable than storing objects)
-const selectedSyrupId = ref(syrups.value[0].id);
+const props = defineProps<{
+  syrup: {
+    id: string;
+    name: string;
+    color: string;
+  };
+}>();
 
-// find the selected syrup object
-const selectedSyrup = computed(() =>
-  syrups.value.find(s => s.id === selectedSyrupId.value)
-);
-
-// dynamic style
-const baseStyle = computed(() => ({
-  backgroundColor: selectedSyrup.value?.color || "transparent"
+const syrupStyle = computed(() => ({
+  backgroundColor: props.syrup.color || "transparent"
 }));
 </script>
 
-<script setup lang="ts"></script>
 <style lang="scss" scoped>
-.syrup {
+.baseSyrup {
   transform: translateY(400%);
-  background-color: #c6c6c6;
   position: relative;
   width: 100%;
   height: 20%;
