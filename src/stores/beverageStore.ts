@@ -21,20 +21,16 @@ export const useBeverageStore = defineStore("BeverageStore", {
   }),
 
   actions: {
-    makeBeverage() {
-      const store = this as any;
-
+    makeBeverage(name: string) {
       const newBeverage = {
         name,
-        temp: store.currentTemp,
-        base: store.currentBase,
-        creamer: store.currentCreamer,
-        syrup: store.currentSyrup,
+        temp: this.currentTemp,
+        base: this.currentBase,
+        creamer: this.currentCreamer,
+        syrup: this.currentSyrup,
       };
 
-      store.$patch((state: any) => {
-        state.beverages.push(newBeverage);
-      });
+      this.beverage.push(newBeverage);
     },
 
     showBeverage(bev: any) {

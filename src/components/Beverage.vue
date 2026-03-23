@@ -5,15 +5,15 @@
 
     <Contents>
       <template #top>
-        <Creamer v-if="hasCreamer" :creamer="creamer" />
+        <Creamer v-if="hasCreamer" :creamer="creamer"/>
       </template>
 
       <template #mid>
-        <Syrup v-if="hasSyrup" :syrup="syrup" />
+        <Syrup v-if="hasSyrup" :syrup="syrup"/>
       </template>
 
       <template #bottom>
-        <Base :base="base" />
+        <Base :base="base"/>
       </template>
     </Contents>
   </Mug>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="baseSyrup" :style="syrupStyle"></div>
+    <div class="baseSyrup" :style="baseStyle"></div>
   </div>
 </template>
 
@@ -15,18 +15,18 @@ const props = defineProps<{
   };
 }>();
 
-const syrupStyle = computed(() => ({
-  backgroundColor: props.syrup.color || "transparent"
+const baseStyle = computed(() => ({
+  backgroundColor: props.syrup.color,
+  opacity: props.syrup.name === "No Syrup" ? 0 : 0.7
 }));
 </script>
 
 <style lang="scss" scoped>
 .baseSyrup {
-  transform: translateY(400%);
+  background-color: #c6c6c6;
   position: relative;
   width: 100%;
   height: 20%;
   animation: pour-tea 2s 1s forwards;
-  z-index: 2;
 }
 </style>

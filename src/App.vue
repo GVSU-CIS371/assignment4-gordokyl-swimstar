@@ -25,8 +25,6 @@
   </div>
 
   <div>
-    <Base :base="store.currentBase" />
-
     <ul>
       <li>
         <template v-for="base in store.bases" :key="base.id">
@@ -45,8 +43,6 @@
   </div>
 
   <div>
-    <Syrup :syrup="store.currentSyrup" />
-
     <ul>
       <li>
         <template v-for="syrup in store.syrups" :key="syrup.id">
@@ -65,8 +61,6 @@
   </div>
 
   <div>
-    <Creamer :creamer="store.currentCreamer" />
-
     <ul>
       <li>
         <template v-for="c in store.creamers" :key="c.id">
@@ -116,17 +110,13 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { useBeverageStore } from "./stores/beverageStore";
-
-import Base from "./components/Base.vue";
 import Beverage from "./components/Beverage.vue";
-import Creamer from "./components/Creamer.vue";
-import Syrup from "./components/Syrup.vue";
 
 const store = useBeverageStore();
 const beverageName = ref("");
 
 function handleSubmit() {
-  store.makeBeverage();
+  store.makeBeverage(beverageName.value);
   beverageName.value = "";
 }
 </script>

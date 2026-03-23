@@ -22,13 +22,11 @@ const baseStyle = computed(() => ({
 
 <style scoped>
 .baseBeverage {
-  position: relative;
   width: 150px;
   height: 200px;
   bottom: 0;
   border: 2px solid black;
   border-radius: 10px;
   animation: pour-tea 2s;
-  z-index: 300;
 }
 </style>
