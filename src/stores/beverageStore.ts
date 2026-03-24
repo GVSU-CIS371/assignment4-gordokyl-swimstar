@@ -47,4 +47,4 @@ export const useBeverageStore = defineStore("BeverageStore", {
   persist: true,
 
 });
-export { bases, syrups, creamers };
+export {tempretures, bases, syrups, creamers}

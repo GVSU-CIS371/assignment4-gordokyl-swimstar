@@ -1,33 +1,27 @@
+<template>
+  <div class="froth" :style="creamerStyle">
+    <div v-for="n in 5" :key="n" class="foam" ></div>
+  </div>
+</template>
+
 <script setup lang="ts">
 import { computed } from "vue";
 
 const props = defineProps<{
-  creamer: {
-    id: string;
-    name: string;
-    color: string;
-  };
+  creamer: any;
 }>();
 
-const frothStyle = computed(() => ({
-  backgroundColor: props.creamer.color || "transparent",
-  opacity: props.creamer.name === "No Cream" ? 0 : 1
-}));
+const selectedCreamer = computed(() => props.creamer);
 
-const foamStyle = computed(() => ({
-  backgroundColor: props.creamer.color || "#e4e0d2"
+const creamerStyle = computed(() => ({
+  backgroundColor: selectedCreamer.value?.color || "transparent"
 }));
 </script>
-
-<template>
-  <div class="froth" :style="frothStyle">
-    <div v-for="n in 5" :key="n" class="foam" :style="foamStyle"></div>
-  </div>
-</template>
 
 <style lang="scss" scoped>
 .froth {
   overflow: visible;
+  transform: translateY(400%);
   position: relative;
   height: 20%;
   width: 100%;

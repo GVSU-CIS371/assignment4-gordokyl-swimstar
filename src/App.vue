@@ -1,21 +1,21 @@
 <template>
   <div>
-    <Beverage
-      :isIced="store.currentTemp === 'Cold'"
-      :creamer="store.currentCreamer"
-      :syrup="store.currentSyrup"
-      :base="store.currentBase"
+    <Beverage 
+      :isIced="currentTemp === 'Cold'"
+      :base="currentBase"
+      :creamer="currentCreamer"
+      :syrup="currentSyrup"
     />
-
     <ul>
       <li>
-        <template v-for="temp in store.temps" :key="temp">
+        <template v-for="temp in temps" :key="temp">
           <label>
             <input
               type="radio"
               name="temperature"
+              :id="`r${temp}`"
               :value="temp"
-              v-model="store.currentTemp"
+              v-model="currentTemp"
             />
             {{ temp }}
           </label>
@@ -23,17 +23,19 @@
       </li>
     </ul>
   </div>
-
+  
   <div>
+    <Base :base="currentBase"/>
     <ul>
       <li>
-        <template v-for="base in store.bases" :key="base.id">
+        <template v-for="base in bases" :key="base.id">
           <label>
             <input
               type="radio"
               name="base"
+              :id="`r${base.id}`"
               :value="base"
-              v-model="store.currentBase"
+              v-model="currentBase"
             />
             {{ base.name }}
           </label>
@@ -43,15 +45,17 @@
   </div>
 
   <div>
+    <Syrup :syrup="currentSyrup" />
     <ul>
       <li>
-        <template v-for="syrup in store.syrups" :key="syrup.id">
+        <template v-for="syrup in syrups" :key="syrup.id">
           <label>
             <input
               type="radio"
               name="syrup"
+              :id="`r${syrup.id}`"
               :value="syrup"
-              v-model="store.currentSyrup"
+              v-model="currentSyrup"
             />
             {{ syrup.name }}
           </label>
@@ -61,17 +65,18 @@
   </div>
 
   <div>
+    <Creamer :creamer="currentCreamer" />
     <ul>
       <li>
-        <template v-for="c in store.creamers" :key="c.id">
+        <template v-for="creamer in creamers" :key="creamer.id">
           <label>
             <input
               type="radio"
               name="creamer"
-              :value="c"
-              v-model="store.currentCreamer"
+              :value="creamer"
+              v-model="currentCreamer"
             />
-            {{ c.name }}
+            {{ creamer.name }}
           </label>
         </template>
       </li>
@@ -81,38 +86,47 @@
   <div>
     <h2>Current Beverage</h2>
     <p>
-      {{ store.currentTemp }} {{ store.currentBase.name }}
-      with {{ store.currentSyrup.name }} and {{ store.currentCreamer.name }}
+      {{ currentTemp }} {{ currentBase.name }}
+      with {{ currentSyrup.name }} and {{ currentCreamer.name }}
     </p>
 
     <form @submit.prevent="handleSubmit">
       <label for="bname">Beverage Name:</label>
       <input type="text" id="bname" v-model="beverageName" />
       <br /><br />
-      <input type="submit" value="Submit" />
+      <input type="submit" value="Make Beverage" />
     </form>
   </div>
 
   <div id="beverage-container">
-  <h2>Saved Beverages</h2>
-
-  <ul>
-    <li v-for="(bev, index) in store.beverage" :key="index">
-      <button @click="store.showBeverage(bev)">
-        {{ bev.name || "Unnamed Beverage" }}
-      </button>
-    </li>
-  </ul>
-</div>
-
+    <h2>Saved Beverages</h2>
+    <ul>
+      <li v-for="(bev, index) in store.beverage" :key="index">
+        <button @click="store.showBeverage(bev)">
+          {{ bev.name || "Unnamed Beverage" }}
+        </button>
+      </li>
+    </ul>
+  </div>
 </template>
 
 <script setup lang="ts">
 import { ref } from "vue";
 import { useBeverageStore } from "./stores/beverageStore";
+import { storeToRefs } from "pinia";
+
 import Beverage from "./components/Beverage.vue";
+import Base from "./components/Base.vue";
+import Syrup from "./components/Syrup.vue";
+import Creamer from "./components/Creamer.vue";
 
 const store = useBeverageStore();
+
+const {
+  temps, bases, syrups, creamers,
+  currentTemp, currentBase, currentCreamer, currentSyrup
+} = storeToRefs(store);
+
 const beverageName = ref("");
 
 function handleSubmit() {
@@ -131,8 +145,8 @@ html {
   height: 100%;
   background-color: #6e4228;
   background: linear-gradient(to bottom, #6e4228 0%, #956f5a 100%);
+  text-align: center;
 }
-
 ul {
   list-style: none;
 }
