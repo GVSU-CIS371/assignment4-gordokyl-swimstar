@@ -48,4 +48,3 @@ export const useBeverageStore = defineStore("BeverageStore", {
 
 });
 export { bases, syrups, creamers };
-
