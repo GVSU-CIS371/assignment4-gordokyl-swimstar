@@ -25,7 +25,6 @@
   </div>
   
   <div>
-    <Base :base="currentBase"/>
     <ul>
       <li>
         <template v-for="base in bases" :key="base.id">
@@ -45,7 +44,6 @@
   </div>
 
   <div>
-    <Syrup :syrup="currentSyrup" />
     <ul>
       <li>
         <template v-for="syrup in syrups" :key="syrup.id">
@@ -65,7 +63,6 @@
   </div>
 
   <div>
-    <Creamer :creamer="currentCreamer" />
     <ul>
       <li>
         <template v-for="creamer in creamers" :key="creamer.id">
@@ -84,11 +81,11 @@
     </ul>
   </div>
 
-  <div>
+  <div class="current-beverage">
     <h2>Current Beverage</h2>
     <p>
-      {{ currentTemp }} {{ currentBase.name }}
-      with {{ currentSyrup.name }} and {{ currentCreamer.name }}
+      <b>{{ currentTemp }}</b> <b>{{ currentBase.name }}</b>
+      with <b>{{ currentSyrup.name }}</b> and <b>{{ currentCreamer.name }}</b>
     </p>
 
     <form @submit.prevent="handleSubmit">
@@ -99,7 +96,7 @@
     </form>
   </div>
 
-  <div id="beverage-container">
+  <div id="beverage-container" class="current-beverage">
     <h2>Saved Beverages</h2>
     <ul>
       <li v-for="(bev, index) in store.beverage" :key="index">
@@ -117,10 +114,6 @@ import { useBeverageStore } from "./stores/beverageStore";
 import { storeToRefs } from "pinia";
 
 import Beverage from "./components/Beverage.vue";
-import Base from "./components/Base.vue";
-import Syrup from "./components/Syrup.vue";
-import Creamer from "./components/Creamer.vue";
-
 const store = useBeverageStore();
 
 const {
@@ -146,9 +139,12 @@ html {
   height: 100%;
   background-color: #6e4228;
   background: linear-gradient(to bottom, #6e4228 0%, #956f5a 100%);
-  text-align: center;
 }
 ul {
   list-style: none;
+}
+.current-beverage {
+  text-align: center;
+  padding: 1rem;
 }
 </style>
