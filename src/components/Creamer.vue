@@ -1,6 +1,6 @@
 <template>
-  <div class="froth" :style="creamerStyle">
-    <div v-for="n in 5" :key="n" class="foam" ></div>
+  <div class="froth">
+    <div v-for="n in 5" :key="n" class="foam" :style="creamerStyle"></div>
   </div>
 </template>
 

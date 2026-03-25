@@ -73,6 +73,7 @@
             <input
               type="radio"
               name="creamer"
+              :id="`r${creamer.id}`"
               :value="creamer"
               v-model="currentCreamer"
             />
