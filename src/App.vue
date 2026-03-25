@@ -95,7 +95,7 @@
       <input type="submit" value="Make Beverage" />
     </form>
   </div>
-
+  <br>
   <div id="beverage-container" class="current-beverage">
     <h2>Saved Beverages</h2>
     <ul>
@@ -105,6 +105,12 @@
         </button>
       </li>
     </ul>
+  </div>
+
+  <div class="tiny-talk">
+    <h2>Assignment 4 - Kyle Gordon - Brew Sampler</h2>
+    <p>Go to the barista stand and lab out some drinks! Make and Save them here!</p>
+    <p>Visit the <a href="https://github.com/GVSU-CIS371/assignment4-gordokyl-swimstar/tree/main" target="_blank">GitHub repo</a> here.</p>
   </div>
 </template>
 
@@ -145,6 +151,12 @@ ul {
 }
 .current-beverage {
   text-align: center;
-  padding: 1rem;
+  margin: 0 auto;
+  padding: 0.25rem;
+  background-color: #6e4228;
+  border: 2px dotted #fff;
+}
+.tiny-talk{
+  text-align: center;
 }
 </style>
